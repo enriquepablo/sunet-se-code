@@ -13,6 +13,9 @@ from pelican import signals
 from pelican.contents import Content
 
 
+CONTENT_DIR = 'sunet-se-content'
+
+
 log = logging.getLogger(__name__)
 
 
@@ -22,7 +25,7 @@ def build_people(pelican):
         del pelican.settings['ES_PEOPLE']
 
     base_path = pelican.settings['INSTALL_DIR']
-    people_path = os.path.join(base_path, 'content', 'people')
+    people_path = os.path.join(base_path, CONTENT_DIR, 'people')
     people_filenames = os.listdir(people_path)
 
     people = {}
@@ -53,7 +56,7 @@ def build_categories(pelican):
         del pelican.settings['ES_SCATS']
 
     base_path = pelican.settings['INSTALL_DIR']
-    cats_path = os.path.join(base_path, 'content', 'navigation', 'service-categories')
+    cats_path = os.path.join(base_path, CONTENT_DIR, 'navigation', 'service-categories')
     cats_filenames = os.listdir(cats_path)
 
     cats = []
@@ -85,7 +88,7 @@ def build_menus(pelican):
         del pelican.settings['ES_MENUS']
 
     base_path = pelican.settings['INSTALL_DIR']
-    menus_path = os.path.join(base_path, 'content', 'navigation', 'menus')
+    menus_path = os.path.join(base_path, CONTENT_DIR, 'navigation', 'menus')
     menu_filenames = os.listdir(menus_path)
 
     menus = defaultdict(dict)
@@ -116,7 +119,7 @@ def build_footer(pelican):
         del pelican.settings['ES_FOOTER']
 
     base_path = pelican.settings['INSTALL_DIR']
-    footer_path = os.path.join(base_path, 'content', 'navigation', 'footer')
+    footer_path = os.path.join(base_path, CONTENT_DIR, 'navigation', 'footer')
     footer_filenames = os.listdir(footer_path)
 
     footer = {

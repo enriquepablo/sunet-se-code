@@ -8,7 +8,7 @@ SITEURL = ""
 
 THEME = 'theme'
 
-PATH = "content"
+PATH = "sunet-se-content"
 
 DIRECT_TEMPLATES = ['index', 'archives']
 
