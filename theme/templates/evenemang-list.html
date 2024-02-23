@@ -1,0 +1,17 @@
+{% set articlelist = articles %}
+{% if ns.subsubsection != 'none' %}
+{% set articlelist = articlelist|selectattr('category', 'equalto', ns.subsubsection) %}
+{% endif %}
+
+<div class="bg-grey">
+  <div class="container listing">
+    <div class="row">
+      <div class="col-12 cards list events">
+        {% for article in articlelist %}
+          {% include 'evenemang-list-item.html' %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+

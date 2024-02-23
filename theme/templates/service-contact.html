@@ -1,0 +1,17 @@
+{% if page.contact_slug in ES_PEOPLE %}
+  {% set person = ES_PEOPLE[page.contact] %}
+{% else %}
+  {% set person = {'title': gettext('Unknown'), 'role': gettext('Unknown'), 'email': '', 'phone': ''} %}
+{% endif %}
+  <div class="service">
+    <div class="meta-contact">
+      <h2>{{ person['title'] }}</h2>
+      <span class="meta-contact--title">{{ person['role'][LANG] }}</span>
+      <div>
+        <a class="meta-contact--mail" href="mailto:{{ person['email'] }}">{{ person['email'] }}</a>
+      </div>
+      <div>
+        <a class="meta-contact--phone" href="tel: {{ person['phone'] }}">{{ person['phone'] }}</a>
+      </div>
+    </div>
+  </div>

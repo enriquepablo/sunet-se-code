@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="row" aria-labelledby="main-title">
+    <div class="col-lg-8 offset-lg-2 hero hlarge">
+      <div>
+        <h1>{{ page.title }}</h1>
+        {{ page.content }}
+      </div>
+      <ul class="newslistings">
+        <li class="newslisting news">
+          <a href="{% trans %}/om-sunet/aktuellt/nyheter{% endtrans %}">{% trans %}Nyheter{% endtrans %}</a>
+        </li>
+        <li class="newslisting events">
+          <a href="{% trans %}/om-sunet/aktuellt/blogg{% endtrans %}">{% trans %}Blogg{% endtrans %}</a>
+        </li>
+        <li class="newslisting pastevents">
+          <a href="{% trans %}/om-sunet/aktuellt/evenemang{% endtrans %}">{%trans %}Evenemang{% endtrans %}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+{% include 'aktuellt-list.html' %}

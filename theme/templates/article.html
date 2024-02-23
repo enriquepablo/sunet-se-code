@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block html_lang %}{{ article.lang }}{% endblock %}
+
+{% block title %}{{ article.title|striptags  }} | {{ SITENAME|striptags }}{% endblock %}
+
+{% block setsection %}
+  {% set segments = article.slug.split('/') %}
+  {% set ns.section = segments[0] %}
+  {% if segments|length() > 1 %}
+    {% set ns.subsection = segments[1] %}
+  {% endif %}
+  {% if segments|length() > 2 %}
+    {% set ns.subsubsection = segments[2] %}
+  {% endif %}
+  {{ super() }}
+{% endblock setsection %}
+
+{% block content %}
+  {% if ns.subsubsection == 'nyheter' %}
+    {% include 'newsitem.html' %}
+  {% elif ns.subsubsection == 'blogg' %}
+    {% include 'blogitem.html' %}
+  {% elif ns.subsubsection == 'evenemang' %}
+    {% include 'eventitem.html' %}
+  {% endif %}
+{% endblock %}

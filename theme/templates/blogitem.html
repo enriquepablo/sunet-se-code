@@ -1,0 +1,12 @@
+<div class="container">
+  <main aria-labelledby="main-title" class="row single m-52">
+    <article class="col-lg-8 offset-lg-2">
+      <div class="item-type-heading">{% trans %}BLOGG{% endtrans %}</div>
+      <h1 id="main-title">{{ article.title }}</h1>
+      <div>
+        {{ article.content }}
+      </div>
+      <div class="date-in-foot">{%trans %}PUBLICERAD DEN{% endtrans %} {{ article.date|format_date }}</div>
+    </article>
+  </main>
+</div>

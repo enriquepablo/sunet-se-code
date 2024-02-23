@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block html_lang %}{{ page.lang }}{% endblock %}
+
+{% set tabtitle = page.title %}
+{% if page.tabtitle %}
+  {% set tabtitle = page.tabtitle %}
+{% endif %}
+
+{% block title %}{{ tabtitle|striptags  }} | {{ SITENAME|striptags }}{% endblock %}
+
+{% block setsection %}
+  {% set segments = page.slug.split('/') %}
+  {% set ns.section = segments[0] %}
+  {% if segments|length() > 1 %}
+    {% set ns.subsection = segments[1] %}
+  {% endif %}
+  {% if segments|length() > 2 %}
+    {% set ns.subsubsection = segments[2] %}
+  {% endif %}
+  {{ super() }}
+{% endblock setsection %}
+
+{% block content %}
+  {% if ns.section == 'services' %}
+    {% if ns.subsection == 'none' %}
+      {% include 'services-list-script.html' %}
+      {% include 'services-front.html' %}
+    {% else %}
+      {% include 'service.html' %}
+    {% endif %}
+  {% elif ns.section == 'om-sunet' %}
+    {% if ns.subsection == 'aktuellt' %}
+      {% if ns.subsubsection == 'none' %}
+        {% include 'aktuellt-front.html' %}
+      {% elif ns.subsubsection == 'nyheter' %}
+        {% include 'news-front.html' %}
+      {% elif ns.subsubsection == 'blogg' %}
+        {% include 'news-front.html' %}
+      {% elif ns.subsubsection == 'evenemang' %}
+        {% include 'evenemang-front.html' %}
+      {% endif %}
+    {% elif ns.subsection == 'nyhetsbrev' %}
+      {% include 'subscribe.html' %}
+    {% else %}
+      {% include 'plain-page.html' %}
+    {% endif %}
+  {% elif ns.section == 'kontakt' %}
+    {% if ns.subsection == 'medarbetare' %}
+      {% include 'medarbetare.html' %}
+    {% else %}
+      {% include 'plain-page.html' %}
+    {% endif %}
+  {% else %}
+    {% include 'plain-page.html' %}
+  {% endif %}
+{% endblock %}

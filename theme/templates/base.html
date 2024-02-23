@@ -1,0 +1,49 @@
+{% set ns = namespace(section='none', subsection='none', subsubsection='none') %}
+<!DOCTYPE html>
+<html lang="{% block html_lang %}{{ LANG }}{% endblock html_lang %}">
+<head>
+  {% assets filters="libsass,postcss,cssmin", output="css/style.min.css", "css/style.scss" %}
+      <link rel="stylesheet" href="{{SITEURL}}/{{ASSET_URL}}">
+  {% endassets %}
+  {% block head %}
+    <title>{% block title %}{{ SITENAME|striptags }}{% endblock title %}</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Pelican" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% if SITESUBTITLE %}
+      <meta name="description" content="{{ SITESUBTITLE }}" />
+    {% endif %}
+  {% endblock head %}
+  <script  type="text/javascript">
+    window.onload = () => {
+      // opening and closing the accordion elements in the footer
+      const elemsC = document.getElementsByClassName('accordion');
+      const elems = Array.from(elemsC);
+      elems.forEach(elem => {
+        elem.addEventListener('click', () => {
+          elem.classList.toggle('open');
+          const opsC = elem.getElementsByTagName('svg');
+          const ops = Array.from(opsC);
+          ops.forEach(op => {
+            op.classList.toggle('d-none');
+          });
+        });
+      });
+    };
+  </script>
+</head>
+
+<body>
+  <div class="wrapper">
+    <a href="#primary-content" tabindex="1" class="main-content-link">{% trans %}To the content{% endtrans %}</a>
+    {% block setsection %}
+      {% include 'header.html' %}
+    {% endblock setsection %}
+    <div id="primary-content" aria-hidden="false">
+        {% block content %}
+        {% endblock %}
+    </div>
+    {% include 'footer.html' %}
+  </div>
+</body>
+</html>

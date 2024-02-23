@@ -1,0 +1,13 @@
+<a href="{{ article.abs_url }}" {% if article_info.hide %}class="d-none"{% endif %}>
+  <div class="newscard">
+    <div class="newscard-head">
+      <div class="newscard-type">{{ article.category }}</div>
+    </div>
+    <div class="newscard-title">
+      <h2>{{ article.title }}</h2>
+    </div>
+    <div class="newscard-text">
+      <p>{{ article.content|striptags|truncate(450, False, '[&hellip;]', 8) }}</p>
+    </div>
+  </div>
+</a>

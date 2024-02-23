@@ -1,0 +1,5 @@
+{% set active = ns.subsection in subitem['url'] %}
+
+<li class="sub-nav-item{% if active %} current{% endif %}" aria-hidden="false">
+  <a href="{{ subitem['url'] }}" aria-selected="{% if active %}true{% else %}false{% endif %}">{{ subitem['title'] }}</a>
+</li>

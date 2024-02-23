@@ -1,0 +1,50 @@
+<script  type="text/javascript">
+  window.onload = () => {
+
+    const button = document.getElementById("more-news-button");
+    const noButton = document.getElementById("no-more-news");
+    const newsListEl = document.getElementById("all-news-listing");
+    const newsList = Array.from(newsListEl.children);
+
+    const nNews = newsListEl.children.length;
+    const paginateBy = {{ ES_PAGINATION }};
+
+    const hideButton = () => {
+      noButton.classList.remove('d-none');
+      button.classList.add('d-none');
+    };
+
+    const moreNews = () => {
+      console.log(`nNews: ${nNews}`);
+      if (nNews > 0) {
+
+        let vNews = 0;
+        newsList.forEach(item => {
+          if (!item.classList.contains('d-none')) {
+            vNews += 1;
+          }
+        });
+        const tNews = vNews + paginateBy;
+        console.log(`tNews: ${tNews}`);
+        for (let n = 0; n < tNews; n++) {
+          if (nNews > n) {
+            newsList[n].classList.remove('d-none');
+          }
+        }
+        if (tNews >= nNews) {
+          hideButton();
+        }
+      } else {
+        hideButton();
+      }
+    };
+
+    button.addEventListener('click', event => {
+      event.preventDefault();
+      moreNews();
+    });
+
+    moreNews();
+  }
+</script>
+

@@ -1,0 +1,24 @@
+<div class="nav-wrapper">
+  <nav aria-label="{% trans %}Huvudmeny{% endtrans %}">
+    <ul class="main-nav">
+      {% for item in ES_MENUS['main-menu'][LANG] %}
+        {% include 'navigation-item.html' %}
+      {% endfor %}
+    </ul>
+  </nav>
+  <nav aria-label="{% trans %}Global meny{% endtrans %}">
+    <ul class="global-nav">
+      {% for item in ES_MENUS['global-menu'][LANG] %}
+        <li class="global-nav-item">
+          <a href={{ item['url'] }}>
+            {{ item['title'] }}
+            {% if item['external'] %}
+              {% include 'external-link-icon.html' %}
+            {% endif %}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </nav>
+</div>
+

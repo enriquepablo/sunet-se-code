@@ -1,0 +1,21 @@
+{% set articlelist = articles %}
+{% if ns.subsubsection != 'none' %}
+  {% set articlelist = articlelist|selectattr('category', 'equalto', ns.subsubsection) %}
+{% endif %}
+
+<div class="bg-grey">
+  <div class="container listing">
+    <div class="row">
+      <div class="col-12 newscards" id="all-news-listing">
+        {% set article_info = namespace(hide = True) %}
+        {% for article in articlelist %}
+          {% include 'aktuellt-list-item.html' %}
+        {% endfor %}
+        </div>
+    </div>
+    {% include 'aktuellt-list-script.html' %}
+    <button id="more-news-button"><span id="more-news-button-plus">+</span>{% trans %}Visa fler{% endtrans %}</button>
+    <div class="d-none" id="no-more-news">{% trans %}Inga fler inlägg{% endtrans %}</div>
+  </div>
+</div>
+

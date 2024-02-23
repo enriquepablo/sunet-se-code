@@ -1,0 +1,57 @@
+<div class="bg-grey">
+  <div class="container listing">
+    <div class="row">
+      <div class="col filter-container">
+        <div class="filter-toggle">
+          <a class="all active category-chooser" data-category="all">
+            <li>Visa alla</li>
+          </a>
+          {% for cat in ES_SCATS %}
+          <a class="{{ cat['slug'] }} null category-chooser" data-category="{{ cat['slug'] }}">
+            <li>{{ cat['title'][LANG] }}</li>
+          </a>
+          {% endfor %}
+        </div>
+        <ul class="listStyle-toggle">
+          <a class="toggle-grid on" id="toggle-service-grid">
+            <li>
+              <svg width="28" height="20" viewBox="0 0 28 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Visa som grid">
+                <title>Visa som grid</title>
+                <rect x="10" width="8" height="4" fill="black"></rect>
+                <rect x="10" y="8" width="8" height="4" fill="black"></rect>
+                <rect x="10" y="16" width="8" height="4" fill="black"></rect>
+                <path d="M0 16H8V20H0V16Z" fill="black"></path>
+                <rect y="8" width="8" height="4" fill="black"></rect>
+                <rect width="8" height="4" fill="black"></rect>
+                <rect x="20" width="8" height="4" fill="black"></rect>
+                <rect x="20" y="8" width="8" height="4" fill="black"></rect>
+                <rect x="20" y="16" width="8" height="4" fill="black"></rect>
+              </svg>
+            </li>
+          </a>
+          <a class="toggle-list" id="toggle-service-list">
+            <li>
+              <svg width="28" height="20" viewBox="0 0 28 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Visa som lista">
+                <title>Visa som lista</title>
+                <rect width="28" height="4" fill="black"></rect>
+                <rect y="8" width="28" height="4" fill="black"></rect>
+                <rect y="16" width="28" height="4" fill="black"></rect>
+              </svg>
+            </li>
+          </a>
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col cards">
+        {% for page in pages %}
+          {% set fragments = page.slug.split('/') %}
+          {% if fragments[0] == 'services' and fragments|length() > 2 %}
+            {% set i = loop.index + 1 %}
+            {% include 'services-list-item.html' %}
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>

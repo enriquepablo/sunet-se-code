@@ -1,0 +1,21 @@
+<div>
+  <div class="container listing">
+    <h2 class="vinjett">{% trans %}Aktuellt{% endtrans %}</h2>
+    <div id="all-news-listing" class="row">
+      <div class="col-12 newscards">
+        {% set article_info = namespace(i = 0, hide = False) %}
+        {% for article in articles if article_info.i < 2 %}
+          {% include 'aktuellt-list-item.html' %}
+          {% set article_info.i = article_info.i + 1 %}
+        {% endfor %}
+        </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="btn-load-container">
+          <a href="/om-sunet/aktuellt/" class="btn-more" aria-label="{% trans %}Till Aktuellt{% endtrans %}">{% trans %}Till Aktuellt{% endtrans %}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

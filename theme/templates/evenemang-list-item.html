@@ -1,0 +1,15 @@
+<a href="{{ article.abs_url }}">
+  <div class="card">
+    <div class="card-tags">
+      <span>{{ article.eventdate }}</span>
+    </div>
+    <div class="card-content">
+      <div class="header-container">
+        <h3>{{ article.title }}</h3>
+      </div>
+      <div class="card-intro">
+        <p>{{ article.content|striptags|truncate(400, False, '[&hellip;]', 8) }}</p>
+      </div>
+    </div>
+  </div>
+</a>

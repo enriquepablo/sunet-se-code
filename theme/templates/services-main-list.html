@@ -1,0 +1,23 @@
+<div class="bg-grey">
+  <div class="container listing">
+    <div class="row">
+      <div class="col cards">
+        {% set carry = namespace(i = 0) %}
+        {% for page in pages if carry.i < 6 %}
+          {% set fragments = page.slug.split('/') %}
+          {% if fragments[0] == 'services' and fragments|length() > 2 %}
+            {% include 'services-list-item.html' %}
+            {% set carry.i = carry.i + 1 %}
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="btn-load-container">
+          <a href="/services" class="btn-load" aria-label="Till alla tjänster">{% trans %}Till alla tjänster{% endtrans %}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<footer class="bg-grey bg-stripe">
+	<div class="container">
+		
+		<div class="row">
+			<div class="col-lg-7">
+        <noscript>{% trans %}This page contains features that require javascript to function properly.{% endtrans %}</noscript>
+
+        {% for entry in ES_FOOTER['entries'][LANG] %}
+          {% include 'footer-entry.html' %}
+        {% endfor %}
+
+			</div>
+		
+			<div class="col-lg-3 offset-lg-2">
+        <div class="box">{{ ES_FOOTER['address'][LANG] }}</div>
+				<br/><br/>
+				<div class="box">{{ ES_FOOTER['address-meta'][LANG] }}</div>
+			</div>
+		</div>
+		<div class="row footer-meta">
+			<div class="col-lg-9">
+				<br/>
+        <a class="external" 
+           href="{% trans %}https://www.vr.se{% endtrans %}"
+           target="_blank">
+            {% trans %}Sunet är en del av Vetenskapsrådet {% endtrans %}
+            {% include 'external-link-icon.html' %}
+        </a>
+			</div>
+		</div>
+	</div>
+</footer>

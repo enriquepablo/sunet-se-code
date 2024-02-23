@@ -1,0 +1,10 @@
+{% set active = ns.section in item['url'] %}
+
+<li class="main-nav-item{% if active %} active current show-sub{%endif %}">
+  <a href={{ item['url'] }} as={{ item['url'] }} aria-selected="">{{ item['title'] }}</a>
+  <ul class="sub-nav">
+    {% if active %}
+      {% include 'sub-navigation.html' %}
+    {% endif %}
+  </ul>
+</li>
