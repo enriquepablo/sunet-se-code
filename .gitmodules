@@ -1,0 +1,3 @@
+[submodule "content"]
+	path = sunet-se-content
+	url = git@github.com:enriquepablo/sunet-se-content.git
