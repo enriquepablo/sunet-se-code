@@ -1,0 +1,110 @@
+@include media-breakpoint-down(md) {
+    .nav-wrapper {
+        display:none;
+        position:fixed;
+        width:100vw;
+        height: calc(100vh - 80px);
+        top:92px;
+        left:0;
+        background-color: #EDEDED;
+        overflow-y: auto;
+        z-index:100;
+        &.active {
+            display:block;
+        }
+    }
+
+    .main-nav,
+    .global-nav,
+    .sub-nav {
+        a {
+            border-color:transparent;
+        }
+    }
+
+    .main-nav-item {
+        width:100%;
+        padding:20px;
+        border-bottom:1px solid #B9B9B9;
+        position:relative;
+    }
+    .global-nav {
+        display:flex;
+        justify-content: space-around;
+    }
+
+    .sub-nav-item {
+        margin-top:16px;
+        font-size:16px;
+    }
+
+
+    .menu-button {
+        position:absolute;
+        right:20px;
+        top:-20px;
+        font-size:0;
+        width:32px;
+        height:22px;
+        border-bottom: 2px solid $pri-orange;
+        transform: ease-out 3s;
+
+        @include media-breakpoint-up(md) {
+            right: 0;
+        }
+
+        &:before,
+        &:after {
+            border-bottom: 2px solid $pri-orange;
+            display:block;
+            content: "";
+            transition: transform cubic-bezier(0.19, 1, 0.22, 1) .5s;
+        }
+        &:before {
+            transform: translateY(-8px);
+        }
+
+        &.active {
+            border-color:transparent;
+
+            &:before {
+                transform: translateY(2px) rotate(-45deg);
+            }
+            &:after {
+                transform: rotate(45deg);
+            }
+        }
+    }
+
+    .sub-nav-toggle {
+        display:inline-block;
+        position:absolute;
+        right:20px;
+        top:10px;
+        font-size:32px;
+        font-weight:100;
+        transform:rotate(0);
+        transition: transform ease-out .2s;
+
+        &:active,
+        &:focus {
+            outline: none;
+        }
+    }
+
+    .sub-nav {
+        max-height:0;
+        overflow:hidden;
+        transition: max-height ease-in-out .2s;
+    }
+
+    .main-nav-item.active {
+       .sub-nav-toggle {
+            transform: rotate(45deg);
+            color: $pri-orange;
+       }
+       .sub-nav {
+            max-height:1000px;
+       }
+    }
+}

@@ -1,0 +1,281 @@
+.cards {
+	display: flex;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+	.card {
+		background-color: $light;
+		width: 32%;
+		margin-bottom: 50px;
+		margin-right:2%;
+		padding: 30px;
+		display: flex;
+		justify-content: space-between;
+		flex-direction: column;
+		font-weight: 400;
+		height: 250px;
+		box-shadow: 0px 4px 14px rgba(89, 89, 89, 0.0668025);
+		border-radius: 10px;
+		border: 1px solid transparent;
+		transition: border-color 0.5s ease;
+		text-decoration: none;
+		
+		&.molnbaserade-tjanster {
+			background-image: url(/static/images/molnbaserade-tjanster.png);
+			background-repeat: no-repeat;
+			background-position: top right;
+		}
+
+		&.nat {
+			background-image: url(/static/images/nat.png);
+			background-repeat: no-repeat;
+			background-position: top right;
+		}
+
+		&.sakerhet {
+			background-image: url(/static/images/sakerhet.png);
+			background-repeat: no-repeat;
+			background-position: top right;
+		}
+
+		&.identifiering {
+			background-image: url(/static/images/identifiering.png);
+			background-repeat: no-repeat;
+			background-position: top right;
+		}
+		&.samarbete {
+			background-image: url(/static/images/samarbete.png);
+			background-repeat: no-repeat;
+			background-position: top right;
+		}
+
+
+		@include media-breakpoint-up(lg) {
+			&:nth-child(3n) {
+				margin-right:0;
+			}
+		}
+
+		@include media-breakpoint-down(md) {
+			width: 48%;
+			margin-right:4%;
+
+			&:nth-child(even) {
+				margin-right:0;
+			}
+		}
+		@include media-breakpoint-down(sm) {
+			margin-bottom: 30px;
+			margin-right:0;
+			width: 100%;
+		}
+		&:last-child {
+			margin-bottom: 0;
+		}
+		.card-tags {
+			span {
+				display: block;
+				font-family: "Akkurat";
+				text-transform: uppercase;
+				@include x-rem(font-size, 1.2);
+			}
+		}
+		.card-content {
+			.card-intro {
+				margin-top: 8px !important;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				display: -webkit-box;
+				line-height: 24px;
+				max-height: 96px;
+				-webkit-line-clamp: 4; /* number of lines to show */
+				-webkit-box-orient: vertical;
+			}
+			.header-container {
+				h2 {
+					margin-top: 0;
+					//transition: all 0.5s ease;
+					border-bottom: 1px solid $light;
+					text-decoration: none;
+					display: initial;
+					@include x-rem(font-size, 2.0);
+				}
+			}
+		}
+		&:hover,
+		&:focus {
+			border: 1px solid $pri_orange;
+			.card-content {
+				h2 {
+	                                text-decoration: none;
+                                        text-decoration-thickness: 1px;
+                                        text-underline-offset: 6px;				
+					color: $pri_orange;
+				}
+			}
+		}
+	}
+	&.list {
+		flex-direction: column;
+		.card {
+			width: 100%;
+			background-color: initial;
+			border: none;
+			box-shadow: none;
+			margin-bottom: 25px;
+			height: auto;
+			border-bottom: 1px solid $sec_grey;
+			border-radius: 0;
+
+			padding: 0 0 25px 0;
+			flex-direction: row-reverse;
+    	justify-content: space-between;
+			.card-tags {
+				align-self: center;
+				width: 20%;
+				span {
+					text-align: right;
+				}
+			}
+			.card-content {
+				display: flex;
+				align-items: center;
+				width: 80%;
+				flex-wrap:wrap;
+				.header-container {
+					width: 100%;
+					margin-right: 0;
+
+				@include media-breakpoint-up(lg) {
+					width:30%;
+				}
+				}
+        .header-container-long {
+          cursor: pointer;
+          display: flex;
+          flex-direction: row;
+          h3 {
+            margin-top: 0;
+            transition: all 0.5s ease-in-out;
+            &:hover {
+              text-decoration: none;
+              color: $pri_orange;
+              border-bottom: 1px solid $pri_orange;
+            }
+          }
+          .summary {
+            margin-left: 2rem;
+            transition: all 0.5s ease-in-out;
+            &:hover {
+              text-decoration: none;
+              color: $pri_orange;
+              border-bottom: 1px solid $pri_orange;
+            }
+          }
+        }
+				.card-intro {
+					width: 100%;
+					@include media-breakpoint-up(lg) {
+						width:70%;
+						padding: 20px;
+					}
+				}
+				.card-intro-long {
+          margin-top: 0;
+          display: flex;
+          flex-direction: row;
+
+          .start-end-dates {
+            display: flex;
+            flex-direction: column;
+	    white-space: nowrap;
+            .date-label {
+              font-size: .8rem;
+              margin-right: .5rem;
+            }
+          }
+				}
+				h2 {
+					border-bottom: 1px solid $pri_grey;
+				}
+				p {
+					//width: 60%;
+					//margin-right: 10%;
+					margin-top: 0;
+				}
+        &.ticket {
+            justify-content: space-between;
+	    flex-wrap: nowrap;
+        }
+			}
+			&:hover,
+			&:focus {
+				.card-content {
+					.header-container {
+						h2, h3 {
+							//border-bottom: 1px solid $pri_orange;
+							width: fit-content;
+						}
+					}
+				}
+			}
+
+			&.molnbaserade-tjanster,
+			&.nat,
+			&.sakerhet,
+			&.identifiering,
+			&.samarbete {
+				background-image: none;
+			}
+		}
+		&.events,
+		&.persons {
+			.card {
+				.header-container {
+					h3 {
+						margin-top:0;
+					}
+				}
+				.card-tags,
+				.card-content {
+					padding-top:20px;
+					p {
+						margin-top:0;
+					}
+				}
+				.card-tags,
+				.header-container {
+					align-self: flex-start;
+				}
+				.card-intro {
+					padding-top: 0;
+					margin-top: 0 !important;
+					overflow: auto;
+					max-height: none;
+					-webkit-line-clamp: unset;
+				}
+			}
+			a {
+				border-bottom: 0;
+			}
+		}
+		&.persons {
+			.card {
+				.card-tags {
+					width:50%;
+					@include media-breakpoint-up(lg) {
+						width:30%;
+					}
+				}
+			}
+		}
+	}
+}
+
+.cards a {
+    text-decoration: none;
+    &:hover {
+	text-decoration: underline;
+    }
+}
+
+

@@ -1,0 +1,79 @@
+.newscards {
+	display: flex;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+	flex-direction: column;
+
+	a {
+		border-bottom: 1px solid $sec_grey;
+		color: black;
+		text-decoration: none;
+		margin-bottom: 25px;
+		height: auto;
+		border-radius: 0;
+		padding: 0 0 25px 0;
+
+		h2 {
+			line-height: 130%;
+			border-bottom: 1px solid transparent;
+		}
+
+		&:hover {
+			text-decoration: none;
+			color: $pri_orange;
+			
+			h2 {
+				width: fit-content;
+				text-decoration: underline;
+				text-decoration-thickness: 1px;
+				text-underline-offset: 6px;
+				line-height: 130%;
+			}
+		}
+
+		.newscard {
+			margin-right:2%;
+			display: flex;
+			flex-direction: column;
+			margin-top: 1rem;
+			margin-bottom: 1rem;
+
+			.newscard-head {
+				display: flex;
+				flex-direction: row;
+				justify-content: flex-start;
+				align-items: flex-end;
+				margin-bottom: 1rem;
+				font-weight: 400;
+
+				.newscard-type {
+					padding-right: 1rem;
+					//border-right: 1px solid $sec_grey;
+					font-family: "Akkurat";
+					text-transform: uppercase;
+					font-size: 12px;
+				}
+				.newscard-date {
+					padding-left: 1rem;
+					font-family: "Akkurat";
+					font-size: 12px;
+				}
+
+			}
+			.newscard-title {
+				margin-bottom: 1rem;
+
+				h2 {
+					margin-top: 0;
+				}
+			}
+			.newscard-text {
+				font-weight: 400;
+				p {
+					margin-top: 0;
+				}
+			}
+		}
+	}
+
+}

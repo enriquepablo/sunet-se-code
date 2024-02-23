@@ -1,0 +1,29 @@
+/* Color settings */
+
+/* Base */
+$dark: #161616;
+$light: #ffffff;
+
+/* Primary colors */
+$pri_grey: #F4F4F4;
+$pri_orange: #CA402B;
+
+$sec_grey: #D8D8D8;
+$sec_orange: #FFE7DD;
+
+$thi_grey: #F1F1F1;
+
+$fou_grey: #EBEBEB;
+
+.bg-white {
+	background-color: $thi_grey;
+}
+.bg-grey {
+	background-color: $pri_grey;
+}
+.bg-orange {
+	background-color: $sec_orange;
+}
+.bg-stripe {
+	border-top: 8px solid $pri_orange;
+}

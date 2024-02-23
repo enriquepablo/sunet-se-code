@@ -1,0 +1,137 @@
+html {
+  font-size: $main-font-size;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -o-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  color: $dark;
+  line-height: 1.5;
+}
+
+// headers
+h1, h2, h3 {
+  font-family: "Inter";
+  text-rendering: optimizeLegibility;
+  margin-top: 52px;
+  line-height: 1.2;
+  font-weight: bold;
+  margin-bottom: 0;
+  @include media-breakpoint-down(sm) {
+    margin-top: 32px;
+  }
+}
+// headers                                                                                                                                                                
+h4, h5, h6 {
+  font-family: "Inter";
+  text-rendering: optimizeLegibility;
+  margin-top: 5px;
+  line-height: 1.2;
+  font-style: italic;
+  font-weight: bold;
+  margin-bottom: 0;
+  @include media-breakpoint-down(sm) {
+    margin-top: 32px;
+  }
+}
+h1 {
+  @include x-rem(font-size, 3.6);
+  @include media-breakpoint-down(md) {
+    @include x-rem(font-size, 3);
+  }
+}
+h2 {
+  @include x-rem(font-size, 2.2);
+  @include media-breakpoint-down(md) {
+    @include x-rem(font-size, 2.3);
+  }
+}
+h3 {
+  @include x-rem(font-size, 2);
+}
+h4 {
+  @include x-rem(font-size, 1.5);
+}
+h5 {
+  @include x-rem(font-size, 1.5);
+}
+h6 {
+  @include x-rem(font-size, 1.4);
+}
+
+
+// main paragraph
+h1, h2, h3, h4 {
+  & + p {
+    margin-top: 8px;
+  }
+}
+
+p {
+  margin-top: 38px;
+  margin-bottom: 0;
+  font-family: "Inter";
+  line-height: 1.5;
+  letter-spacing: 0.3px;
+}
+
+// links
+a {
+//  border-bottom: 1px solid $dark;
+  color: $dark;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  text-decoration-color: $dark;
+  transition: color 0.5s ease;
+
+  &.external {
+    svg { 
+      position: static; 
+    }
+  }
+  &:hover {
+    text-decoration: none;
+    color: $pri_orange;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;    
+  }
+}
+
+header a {
+    border-bottom: 1px solid $light;
+    text-decoration: none;
+  font-weight: 400;
+  transition: all 0.5s ease;
+}
+
+a:focus, 
+button:focus, 
+input:focus, 
+select:focus {
+  outline: 2px transparent solid!important;
+  box-shadow: 0 0 0 2px #F9F9D1, 0 0 0 4px #396196, 0 0 4px 8px #F9F9D1!important;
+}
+
+.vinjett {
+  padding:5px 10px;
+  font-weight:bold;
+  color:#fff;
+  position: absolute;
+  top:-32px;
+  background:#CA402B;
+  border-radius: 0 0 3px 3px;
+  
+  @include media-breakpoint-up(md) {
+    top: -52px;
+  }
+}
+
+.filter-toggle a {
+    text-decoration: none;
+}

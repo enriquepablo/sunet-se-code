@@ -1,0 +1,126 @@
+.m-80 {
+	margin-top: 80px;
+}
+.m-52 {
+	margin-top: 52px;
+}
+.single {
+	article {
+		margin-bottom: 160px;
+		h1 {
+			@include x-rem(font-size, 3.6);
+			line-height: 1.2;
+			margin-top: 0;
+		}
+		div.item-type-heading {
+			font-family: "Akkurat";
+			margin-bottom: .8rem;
+			font-weight: 400;
+		}
+		p.intro-1,
+		> div > p:first-child {
+			@include x-rem(font-size, 2.2);
+			line-height: 1.40;
+			margin-top: 8px;
+			margin-bottom: 30px
+		}
+		h2 {
+			@include x-rem(font-size, 2.2);
+			line-height: 28px;
+			margin-top: 36px;
+		}
+		p.intro-2 {
+			@include x-rem(font-size, 2.2);
+			line-height: 36px;
+			margin-top: 24px;
+		}
+		h3 {
+			@include x-rem(font-size, 1.7);
+			line-height: 34px;
+			margin-top: 30px;
+		}
+		p {
+			@include x-rem(font-size, 1.5);
+			line-height: 150%;
+			margin-top: 5px;
+			margin-bottom: 17px;
+		}
+		h2 + h3 {
+		    margin-top: 5px;
+		}
+		h4 + ul {
+		    margin-top: 3px;
+		}
+		h3 + p {
+		        margin-top: 0px;
+		}
+		pre {
+			white-space: pre;
+			background-color: $thi_grey;
+			margin: 24px 0 0 0;
+			padding: $grid-gutter-width-base;
+			code {
+  	  			display: block;
+  	  	        padding: 30px;
+				font-family: "Akkurat";
+				white-space: pre;
+			}
+		}
+		p.image-caption {
+			@include x-rem(font-size, 1.4);
+			line-height: 22px;	
+			margin-top: 40px;
+		}
+		ul,
+		ol {
+		    margin-top: 15px;
+		    margin-bottom: 15px;
+		    list-style-type: "—  ";
+		    padding-left: 24px;
+		    margin-bottom: 20px;
+		    @include x-rem(font-size, 1.5);
+				     
+		}
+		img {
+			margin-top: 30px;
+		}
+		div.date-in-foot {
+			font-family: "Akkurat";
+			margin-top: 2rem;
+			text-transform: uppercase;
+			font-size: .8rem;
+		}
+	}
+	blockquote {
+		font-size: $font-size-base;
+		padding: 0px 20px 0px 20px;
+		border-left-color: #ca402b;
+		border-left-style: solid;
+		border-left-width: 5px;
+		//background-color: $thi_grey;
+		margin: 24px 0 0 0;
+		p {
+			margin-top:0;
+		}
+	}
+}
+.related-segment {
+	background-color: $sec_orange;
+	margin-top: 160px;
+	padding: 120px 0;
+	h2 {
+		@include x-rem(font-size, 2.8);
+		line-height: 38px;
+		margin-top: 0;
+	}
+	ul {
+		margin-top: 24px;
+		li {
+			@include x-rem(font-size, 2);
+			line-height: 32px;
+			a {
+				margin-left: 10px;
+			}
+		}
+	}
+}

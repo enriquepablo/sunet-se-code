@@ -1,0 +1,27 @@
+// Grid settings
+$main-sm-columns:       12;
+$sidebar-sm-columns:    4;
+
+// Grid settings
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1080px
+);
+$grid-columns: 12;
+
+$grid-gutter-width-base: 30px;
+
+$grid-gutter-widths: (
+  xs: $grid-gutter-width-base,
+  sm: $grid-gutter-width-base,
+  md: $grid-gutter-width-base,
+  lg: 60px,
+  xl: 50px
+) !default;
+
+/* rem fallback to pixels */
+@mixin x-rem ($property, $value) {
+  #{$property}: $value * 10px;
+}

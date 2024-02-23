@@ -1,0 +1,12 @@
+
+ul.newslistings {
+	display: flex;
+	flex-direction: column;
+	display: block;
+	margin-top: 2rem;
+	list-style-type: "—  ";
+	padding-left: 24px;
+	
+	li.newslisting {
+	}
+}

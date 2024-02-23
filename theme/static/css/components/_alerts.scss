@@ -1,0 +1,37 @@
+.info-banner {
+	background-color: $fou_grey;
+	padding-top: 16px;
+	padding-bottom: 16px;
+	p {
+		border-bottom: 1px solid $pri_orange;
+		display: initial;
+	}
+}
+
+.cookie-banner {
+	display: none;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: $fou-grey;
+	padding: 15px 30px;
+	justify-content: space-between;
+	align-items: center;
+	p {
+		margin: 0;
+		@include x-rem(font-size, 1.4);
+		line-height: 22px;
+		max-width: 80%;
+		a {
+			font-weight: bold;
+			border-bottom: 1px solid black;
+			&:hover {
+				border-bottom: 1px solid $pri_orange;
+			}
+		}
+	}
+	&.active {
+		display: flex;
+	}
+}

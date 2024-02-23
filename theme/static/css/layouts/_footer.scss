@@ -1,0 +1,42 @@
+footer {
+	padding-top: 70px;
+	padding-bottom: 70px;
+	@include media-breakpoint-down(sm) {
+		padding: 30px 0;
+	}
+	
+	.footer-meta {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		margin-top: 60px;	
+		.box {
+			p {
+				margin-top: 0;
+			}
+			a {
+				display: inline-block;
+			}
+		}
+		@include media-breakpoint-down(md) {
+			flex-direction: column;
+			.box {
+				width: 100%;
+			} 	
+		}
+	}
+}
+
+.vr-footer {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	position: relative;
+	svg {
+		position: absolute;
+		bottom: 15px;
+		left: 20px;
+	}
+	a {
+		font-weight: bold;
+	}
+}

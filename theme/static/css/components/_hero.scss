@@ -1,0 +1,14 @@
+.hero {
+	padding-bottom: 80px;
+	@include media-breakpoint-down(sm) {
+		padding-bottom: 50px;
+	}
+	p {
+		@include x-rem(font-size, 2.4);
+		line-height:1.30;
+	}
+}
+
+.hero.hlarge {
+  min-height: 340px;
+}
