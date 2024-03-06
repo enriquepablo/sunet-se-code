@@ -4,7 +4,7 @@
       <div class="col filter-container">
         <div class="filter-toggle">
           <a class="all active category-chooser" data-category="all">
-            <li>Visa alla</li>
+            <li>{% trans %}Visa alla{% endtrans %}</li>
           </a>
           {% for cat in ES_SCATS %}
           <a class="{{ cat['slug'] }} null category-chooser" data-category="{{ cat['slug'] }}">
@@ -15,8 +15,8 @@
         <ul class="listStyle-toggle">
           <a class="toggle-grid on" id="toggle-service-grid">
             <li>
-              <svg width="28" height="20" viewBox="0 0 28 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Visa som grid">
-                <title>Visa som grid</title>
+              <svg width="28" height="20" viewBox="0 0 28 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="{% trans %}Visa som grid{% endtrans %}">
+                <title>{% trans %}Visa som grid{% endtrans %}</title>
                 <rect x="10" width="8" height="4" fill="black"></rect>
                 <rect x="10" y="8" width="8" height="4" fill="black"></rect>
                 <rect x="10" y="16" width="8" height="4" fill="black"></rect>
@@ -31,8 +31,8 @@
           </a>
           <a class="toggle-list" id="toggle-service-list">
             <li>
-              <svg width="28" height="20" viewBox="0 0 28 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Visa som lista">
-                <title>Visa som lista</title>
+              <svg width="28" height="20" viewBox="0 0 28 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="{% trans %}Visa som lista{% endtrans %}">
+                <title>{% trans %}Visa som lista{% endtrans %}</title>
                 <rect width="28" height="4" fill="black"></rect>
                 <rect y="8" width="28" height="4" fill="black"></rect>
                 <rect y="16" width="28" height="4" fill="black"></rect>
@@ -42,15 +42,22 @@
         </ul>
       </div>
     </div>
+    {% if ns.subsection == 'none' %}
+      {% set current_category = 'all' %}
+    {% else %}
+      {% set current_category = ns.subsection %}
+    {% endif %}
+    <div id="card-reservoir" class="d-none" data-current="{{ current_category }}">
+      {% for page in pages %}
+        {% set fragments = page.slug.split('/') %}
+        {% if fragments[0] == 'services' and fragments|length() > 2 %}
+          {% set i = loop.index + 1 %}
+          {% include 'services-list-item.html' %}
+        {% endif %}
+      {% endfor %}
+    </div>
     <div class="row">
-      <div class="col cards">
-        {% for page in pages %}
-          {% set fragments = page.slug.split('/') %}
-          {% if fragments[0] == 'services' and fragments|length() > 2 %}
-            {% set i = loop.index + 1 %}
-            {% include 'services-list-item.html' %}
-          {% endif %}
-        {% endfor %}
+      <div id="card-display" class="col cards">
       </div>
     </div>
   </div>

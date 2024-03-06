@@ -30,7 +30,6 @@ RUN git submodule init
 RUN git submodule update
 
 RUN python3 -m venv venv
-RUN . venv/bin/activate
 
 RUN . venv/bin/activate && pip install -r requirements.txt
 RUN npm install

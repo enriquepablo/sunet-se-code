@@ -3,51 +3,65 @@
     const gridSetter = document.getElementById("toggle-service-grid");
     const listSetter = document.getElementById("toggle-service-list");
 
-    const cardHolder = document.querySelector("div.cards");
-    const cardsC = cardHolder.querySelectorAll("a.card");
+    const cardDisplay = document.getElementById("card-display");
+    const cardReservoir = document.getElementById("card-reservoir");
+    const cardsC = cardReservoir.querySelectorAll("a.card");
     const cards = Array.from(cardsC);
     const catChoosersC = document.querySelectorAll("a.category-chooser");
     const catChoosers = Array.from(catChoosersC);
+
+    const displayChoice = () => {
+      const cat = cardReservoir.dataset.current;
+      catChoosers.forEach(chooser => {
+        if (chooser.dataset.category === cat) {
+          chooser.classList.add("active");
+          chooser.classList.remove("null");
+        } else {
+          chooser.classList.add("null");
+          chooser.classList.remove("active");
+        }
+      });
+    };
+    const displayCategory = cat => {
+      cardReservoir.dataset.current = cat;
+      cardDisplay.textContent = '';
+      cards.forEach(card => {
+        if (card.classList.contains(cat) || cat === 'all') {
+          const newCard = card.cloneNode(true);
+          cardDisplay.appendChild(newCard);
+        }
+      });
+      displayChoice(cat);
+    };
+
+    const currentCat = cardReservoir.dataset.current;
+    displayCategory(currentCat);
 
     catChoosers.forEach(elem => {
       elem.addEventListener('click', event => {
         event.preventDefault();
         const cat = elem.dataset.category;
-        if (cat === "all") {
-          cards.forEach(card => {
-            card.classList.remove('d-none')
-          });
+        if (cat === 'all') {
+          window.history.replaceState(null, '', `/{{ ns.section }}`);
         } else {
-          cards.forEach(card => {
-            if (card.classList.contains(cat)) {
-              card.classList.remove('d-none')
-            } else {
-              card.classList.add('d-none')
-            }
-          });
+          window.history.replaceState(null, '', `/{{ ns.section }}/${cat}`);
         }
-        catChoosers.forEach(chooser => {
-          if (chooser.dataset.category === cat) {
-            chooser.classList.add("active");
-            chooser.classList.remove("null");
-          } else {
-            chooser.classList.add("null");
-            chooser.classList.remove("active");
-          }
-        });
+        displayCategory(cat);
       });
     });
 
     gridSetter.addEventListener('click', event => {
       gridSetter.classList.add('on');
       listSetter.classList.remove('on');
-      cardHolder.classList.remove('list');
+      cardDisplay.classList.remove('list');
+      displayChoice();
     })
 
     listSetter.addEventListener('click', event => {
       gridSetter.classList.remove('on');
       listSetter.classList.add('on');
-      cardHolder.classList.add('list');
+      cardDisplay.classList.add('list');
+      displayChoice();
     })
   }
 </script>
