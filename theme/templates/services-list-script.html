@@ -1,5 +1,5 @@
 <script  type="text/javascript">
-  window.onload = () => {
+  window.addEventListener('load', (e) => {
     const gridSetter = document.getElementById("toggle-service-grid");
     const listSetter = document.getElementById("toggle-service-list");
 
@@ -63,6 +63,6 @@
       cardDisplay.classList.add('list');
       displayChoice();
     })
-  }
+  })
 </script>
 

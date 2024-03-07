@@ -15,27 +15,29 @@
     {% endif %}
   {% endblock head %}
   <script  type="text/javascript">
-    window.onload = () => {
+    window.addEventListener('load', (e) => {
       // opening and closing the accordion elements in the footer
       const elemsC = document.getElementsByClassName('accordion');
       const elems = Array.from(elemsC);
+      console.log(`Found ${elems.length} accordions`);
       elems.forEach(elem => {
         elem.addEventListener('click', () => {
           elem.classList.toggle('open');
           const opsC = elem.getElementsByTagName('svg');
           const ops = Array.from(opsC);
+          console.log(`Found ${ops.length} svgs`);
           ops.forEach(op => {
             op.classList.toggle('d-none');
           });
         });
       });
-    };
+    })
   </script>
 </head>
 
 <body>
   <div class="wrapper">
-    <a href="#primary-content" tabindex="1" class="main-content-link">{% trans %}To the content{% endtrans %}</a>
+    <a href="#primary-content" tabindex="1" class="main-content-link">{% trans %}Till innehållet{% endtrans %}</a>
     {% block setsection %}
       {% include 'header.html' %}
     {% endblock setsection %}

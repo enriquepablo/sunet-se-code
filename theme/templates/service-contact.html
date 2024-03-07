@@ -1,4 +1,4 @@
-{% if page.contact_slug in ES_PEOPLE %}
+{% if page.contact in ES_PEOPLE %}
   {% set person = ES_PEOPLE[page.contact] %}
 {% else %}
   {% set person = {'title': gettext('Unknown'), 'role': gettext('Unknown'), 'email': '', 'phone': ''} %}
