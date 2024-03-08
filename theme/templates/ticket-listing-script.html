@@ -1,0 +1,11 @@
+<script  type="text/javascript">
+  window.addEventListener('load', (e) => {
+    const cardsC = document.querySelectorAll("div.ticket-link");
+    const cards = Array.from(cardsC);
+    cards.forEach(card => {
+      card.addEventListener('click', e => {
+        document.location.href = `/arenden/${e.target.dataset.key}`;
+      });
+    });
+  })
+</script>

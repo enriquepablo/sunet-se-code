@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 offset-lg-2 hero">
+      <div>
+        <h1 id="main-title">{{ page.title }}</h1>
+        {{ page.content }}
+      </div>
+    </div>
+  </div>
+</div>
+<div class="bg-grey">
+  <div class="container">
+    <div class="ticket-list-legend">
+      {% trans %}SUNET open trouble tickets - unscheduled / incident{% endtrans %}
+    </div>
+  </div>
+  <div class="container listing tickets">
+    <div class="row">
+      <div class="col-12 cards list tickets">
+        {% for ticket in ES_TICKETS['unscheduled'] %}
+          {% include 'ticket-unsched-listing.html' %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+<div class="bg-white">
+  <div class="container">
+    <div class="ticket-list-legend">
+      {% trans %}SUNET open trouble tickets - scheduled maintenance{% endtrans %}
+    </div>
+  </div>
+  <div class="container listing tickets">
+    <div class="row">
+      <div class="col-12 cards list tickets">
+        {% for ticket in ES_TICKETS['scheduled'] %}
+          {% include 'ticket-sched-listing.html' %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% include 'ticket-listing-script.html' %}

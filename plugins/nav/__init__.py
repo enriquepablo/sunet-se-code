@@ -1,7 +1,9 @@
 from collections import defaultdict
 from urllib.parse import urljoin
+import json
 import logging
 import os
+import shutil
 
 import yaml
 try:
@@ -149,11 +151,81 @@ def build_footer(pelican):
     pelican.settings['ES_FOOTER'] = footer
 
 
+def build_tickets(pelican):
+
+    if 'ES_TICKETS' in pelican.settings:
+        del pelican.settings['ES_TICKETS']
+
+    pelican.settings['ES_TICKETS'] = {}
+
+    base_path = os.environ.get('JIRA_TICKETS_OUTPUT', '')
+    json_path = os.path.join(base_path, 'tickets.json')
+
+    if base_path == '' or not os.path.exists(json_path):
+        return
+
+    json_path = os.path.join(base_path, 'tickets.json')
+    with open(json_path) as f:
+        tickets = json.loads(f.read())
+
+    open_tickets = list(filter(lambda ticket: ticket['fields']['status']['name'] == 'Open' or ticket['fields']['status']['name'] == 'Resolved', tickets))
+    sched_tickets = list(filter(lambda ticket: ticket['fields']['issuetype']['name'].strip() == "Scheduled" and 'customfield_11603' in ticket['fields'] and ticket['fields']['customfield_11603'] is not None, open_tickets))
+    unsched_tickets = list(filter(lambda ticket: ticket['fields']['issuetype']['name'].strip() == "Unscheduled", open_tickets))
+
+    pelican.settings['ES_TICKETS']['open_tickets'] = {}
+    for ticket in open_tickets:
+        pelican.settings['ES_TICKETS']['open_tickets'][ticket['key']] = ticket
+
+    for item in sched_tickets:
+        if item['fields'].get('customfield_11603', None) is not None:
+            startend = item['fields']['customfield_11603'].split('/')
+            item['start'] = startend[0]
+
+    for item in unsched_tickets:
+        item['start'] = item['fields']['created']
+
+    sched_tickets.sort(key=lambda t: t['start'])
+    unsched_tickets.sort(key=lambda t: t['start'])
+
+    for tickets in sched_tickets, unsched_tickets:
+        for ticket in tickets:
+            ticket['affected_customers'] = []
+            ticket['affected_services'] = []
+            if 'customfield_11600' in ticket['fields'] and ticket['fields']['customfield_11600']:
+                for item in ticket['fields']['customfield_11600']:
+                    affected = item.split(':')[-1]
+                    if item.startswith('affected_customer'):
+                        ticket['affected_customers'].append(affected)
+                    elif item.startswith('service'):
+                        ticket['affected_services'].append(affected)
+
+    tickets_path = os.path.join(pelican.settings['INSTALL_DIR'], CONTENT_DIR, 'pages', 'arenden')
+    if os.path.exists(tickets_path):
+        shutil.rmtree(tickets_path)
+
+    os.makedirs(tickets_path)
+
+    for tickets in sched_tickets, unsched_tickets:
+        for ticket in tickets:
+            print(f"ticket {ticket['key']}")
+            filename = f"{ticket['key']}.md"
+            path = os.path.join(tickets_path, filename)
+            print(f"path {path}")
+            with open(path, 'w') as f:
+                f.write(f"Title: {ticket['key']}\n")
+                f.write(f"Slug: arenden/{ticket['key']}\n")
+                f.write(f"Summary: {ticket['fields']['summary']}\n")
+
+    pelican.settings['ES_TICKETS']['scheduled'] = sched_tickets
+    pelican.settings['ES_TICKETS']['unscheduled'] = unsched_tickets
+
+
 def build_navigation(pelican):
     build_people(pelican)
     build_categories(pelican)
     build_menus(pelican)
     build_footer(pelican)
+    build_tickets(pelican)
 
 
 def add_url(content):

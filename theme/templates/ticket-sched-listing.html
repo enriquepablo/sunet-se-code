@@ -1,0 +1,37 @@
+<div class="card">
+  <div class="card-tags">
+    {% if ticket['affected_customers'] %}
+      {% for item in ticket['affected_customers'] %}
+        <span>{{ item }}</span>
+      {% endfor %}
+    {% endif %}
+  </div>
+  <div class="card-content ticket">
+    <div class="header-container-long ticket-link">
+      <h3>
+        <span data-key="{{ ticket['key'] }}">{{ ticket['key'] }}</span>
+      </h3>
+      <div class="summary" data-key="{{ ticket['key'] }}">
+        {{ ticket['fields']['summary'] }}
+      </div>
+    </div>
+    <div class="card-intro-long">
+      <div class="start-end-dates">
+        {% if 'customfield_11603' in ticket['fields'] %}
+          <span class="start-date">
+            <span class="date-label">
+              {% trans %}Maintenance start:{% endtrans %}
+            </span>
+            {{ ticket['fields']['customfield_11603'].split('/')[0] }}
+          </span>
+          <span class="end-date">
+            <span class="date-label">
+              {% trans %}Maintenance end:{% endtrans %}
+            </span>
+            {{ ticket['fields']['customfield_11603'].split('/')[1] }}
+          </span>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>

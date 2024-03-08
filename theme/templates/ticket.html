@@ -1,0 +1,151 @@
+{% set ticket = ES_TICKETS['open_tickets'][page.title] %}
+<div class="container">
+  <main aria-labelledby="main-title" class="row single m-80">
+    <article class="col-lg-12">
+      <h1 id="main-title">{{ page.summary|striptags }}</h1>
+      <dl class="ticket-update">
+        <dt>
+          {% trans %}Ticket number:{% endtrans %}
+        </dt>
+        <dd>
+          {{ ticket['key'] }}
+        </dd>
+        <dt>
+          {% trans %}Ticket type:{% endtrans %}
+        </dt>
+        <dd>
+          {{ ticket['fields']['issuetype']['name'] }}
+        </dd>
+        <dt>
+          {% trans %}Ticket status:{% endtrans %}
+        </dt>
+        <dd>
+          {{ ticket['fields']['status']['name'] }}
+        </dd>
+        <dt>
+          {% trans %}Ticket summary:{% endtrans %}
+        </dt>
+        <dd>
+          {{ ticket['fields']['summary'] }}
+        </dd>
+        {% if 'customfield_11800' in ticket['fields'] and ticket['fields']['customfield_11800'] %}
+          <dt>
+            {% trans %}Ticket scope:{% endtrans %}
+          </dt>
+          <dd>
+            {{ ticket['fields']['customfield_11800']['value'] }}
+          </dd>
+          {% endif %}
+        <dt>
+          {% trans %}Ticket opened:{% endtrans %}
+        </dt>
+        <dd>
+          {{ ticket['fields']['created'] }}
+        </dd>
+        {% if 'resolutiondate' in ticket['fields'] and ticket['fields']['resolutiondate'] %}
+          <dt>
+            {% trans %}Ticket closed:{% endtrans %}
+          </dt>
+          <dd>
+            {{ ticket['fields']['resolutiondate'] }}
+          </dd>
+        {% endif %}
+        {% if ticket['fields']['issuetype']['name'].strip() == "Scheduled" and 'customfield_11603' in ticket['fields'] and ticket['fields']['customfield_11603'] %}
+          <dt>
+            {% trans %}Maintenance:{% endtrans %}
+          </dt>
+          <dd>
+            {{ ticket['fields']['customfield_11603'] }}
+          </dd>
+        {% endif %}
+        {% if ticket['fields']['issuetype']['name'].strip() == "Unscheduled" and 'customfield_11604' in ticket['fields'] and ticket['fields']['customfield_11604'] %}
+          <dt>
+            {% trans %}Problem start / end:{% endtrans %}
+          </dt>
+          <dd>
+            {{ ticket['fields']['customfield_11604'] }}
+          </dd>
+        {% endif %}
+        {% if ticket['fields']['issuetype']['name'].strip() == "Scheduled" and 'customfield_10402' in ticket['fields'] and ticket['fields']['customfield_10402'] %}
+          <dt>
+            {% trans %}Estimated outage:{% endtrans %}
+          </dt>
+          <dd>
+            {{ ticket['fields']['customfield_10402'] }} min
+          </dd>
+        {% endif %}
+        {% if 'customfield_11601' in ticket['fields'] and ticket['fields']['customfield_11601'] %}
+          <dt>
+            {% trans %}Outage:{% endtrans %}
+          </dt>
+          <dd>
+            {% for pair in ticket['fields']['customfield_11601'] %}
+            <div>{{ pair }}</div>
+            {% endfor %}
+          </dd>
+        {% endif %}
+        {% if ticket['affected_customers'] %}
+          <dt>
+            {% trans %}Affected organizations:{% endtrans %}
+          </dt>
+          <dd>
+          {% for item in ticket['affected_customers'] %}
+            <span>{{ item }}&nbsp;&nbsp;</span>
+          {% endfor %}
+          </dd>
+        {% endif %}
+        {% if ticket['affected_services'] %}
+          <dt>
+            {% trans %}Affected services:{% endtrans %}
+          </dt>
+          <dd>
+          {% for item in ticket['affected_services'] %}
+            <span>{{ item }}&nbsp;&nbsp;</span>
+          {% endfor %}
+          </dd>
+        {% endif %}
+        {% if 'description' in ticket['fields'] and ticket['fields']['description'] %}
+          <dt>
+            {% trans %}Description:{% endtrans %}
+          </dt>
+          <dd>
+            <pre>
+            {{ ticket['fields']['description'] }}
+            </pre> 
+          </dd>
+        {% endif %}
+        {% if 'customfield_11802' in ticket['fields'] and ticket['fields']['customfield_11802'] %}
+          <dt>
+            {% trans %}Impact:{% endtrans %}
+          </dt>
+          <dd>
+            <pre>
+            {{ ticket['fields']['customfield_11802'] }}
+            </pre>
+          </dd>
+        {% endif %}
+        {% if 'customfield_10403' in ticket['fields'] and ticket['fields']['customfield_10403'] %}
+          <dt>
+            {% trans %}Final ticket report:{% endtrans %}
+          </dt>
+          <dd>
+            <pre>
+            {{ ticket['fields']['customfield_10403'] }}
+            </pre>
+          </dd>
+        {% endif %}
+
+      </dl>
+      {% if 'comment' in ticket['fields'] and ticket['fields']['comment'] and 'comments' in ticket['fields']['comment'] and ticket['fields']['comment']['comments'] %}
+        <p><strong>{% trans %}Updates:{% endtrans %}</strong></p>
+        {% for comment in ticket['fields']['comment']['comments'] %}
+          <div class="ticket-detail-update">
+            <span class="ticket-update-date">{{ comment['created'] }}</span><br/>
+            <pre>{{ comment['body'] }}</pre>
+          </div>
+        {% endfor %}
+      {% endif %}
+    </article>
+  </main>
+</div>
+

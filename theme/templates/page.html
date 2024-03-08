@@ -22,7 +22,13 @@
 {% endblock setsection %}
 
 {% block content %}
-  {% if ns.section == 'services' %}
+  {% if ns.section == 'arenden' %}
+    {% if ns.subsection == 'none' %}
+      {% include 'tickets.html' %}
+    {% else %}
+      {% include 'ticket.html' %}
+    {% endif %}
+  {% elif ns.section == 'services' %}
     {% if ns.subsubsection == 'none' %}
       {% include 'services-list-script.html' %}
       {% include 'services-front.html' %}
