@@ -36,8 +36,12 @@ RUN npm install
 
 RUN . venv/bin/activate && make pristine
 
+RUN git config --global --add safe.directory /opt/sunet-se-code
+
 COPY nginx.conf /usr/local/openresty/nginx/conf/nginx.conf
 COPY refresh.lua /usr/local/openresty/nginx/conf/refresh.lua
+COPY update_site.sh /usr/local/bin/update_site.sh
+RUN chmod 755 /usr/local/bin/update_site.sh
 
 RUN sed -i 's/SERVER_NAME/$SERVER_NAME/g' /usr/local/openresty/nginx/conf/nginx.conf
 
