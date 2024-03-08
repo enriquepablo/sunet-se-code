@@ -7,6 +7,9 @@ cd /opt/sunet-se-code || exit 1
 git pull --recurse-submodules origin main >/dev/null 2>&1
 pull_status=$?
 
+get-jira-tickets.sh -c get-jira-tickets.conf -p "$SUNET_JIRA_PASSWORD"
+tickets_status=$?
+
 # activate virtualenv
 source venv/bin/activate
 
@@ -15,7 +18,7 @@ make pristine >/dev/null 2>&1
 make_status=$?
 
 # If there were errors in either the git pull or make commands, return exit status 1
-if [ $pull_status -ne 0 ] || [ $make_status -ne 0 ]; then
+if [ $pull_status -ne 0 ] || [ $tickets_status -ne 0 ] || [ $make_status -ne 0 ]; then
     exit 1
 fi
 

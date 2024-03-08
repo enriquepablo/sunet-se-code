@@ -4,7 +4,8 @@ ENV DEBIAN_FRONTEND noninteractive
 
 ENV GIT_BRANCH main
 ENV SERVER_NAME localhost
-ENV NGINX_VERSION=1.25.3.1
+ENV NGINX_VERSION 1.25.3.1
+ENV SUNET_JIRA_PASSWORD dummy
 
 # Install needed software
 
@@ -41,7 +42,11 @@ RUN git config --global --add safe.directory /opt/sunet-se-code
 COPY nginx.conf /usr/local/openresty/nginx/conf/nginx.conf
 COPY refresh.lua /usr/local/openresty/nginx/conf/refresh.lua
 COPY update_site.sh /usr/local/bin/update_site.sh
+COPY get-jira-issues.sh /usr/local/bin/get-jira-issues.sh
+COPY get-jira-issues.conf /usr/local/bin/get-jira-issues.conf
+
 RUN chmod 755 /usr/local/bin/update_site.sh
+RUN chmod 755 /usr/local/bin/get-jira-issues.sh
 
 RUN sed -i 's/SERVER_NAME/$SERVER_NAME/g' /usr/local/openresty/nginx/conf/nginx.conf
 
