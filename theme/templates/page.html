@@ -35,6 +35,13 @@
     {% else %}
       {% include 'service.html' %}
     {% endif %}
+  {% elif ns.section == 'projekt' %}
+    {% if ns.subsubsection == 'none' %}
+      {% include 'services-list-script.html' %}
+      {% include 'services-front.html' %}
+    {% else %}
+      {% include 'service.html' %}
+    {% endif %}
   {% elif ns.section == 'om-sunet' %}
     {% if ns.subsection == 'aktuellt' %}
       {% if ns.subsubsection == 'none' %}

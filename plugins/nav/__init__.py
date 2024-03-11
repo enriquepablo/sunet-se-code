@@ -58,30 +58,37 @@ def build_categories(pelican):
         del pelican.settings['ES_SCATS']
 
     base_path = pelican.settings['INSTALL_DIR']
-    cats_path = os.path.join(base_path, CONTENT_DIR, 'navigation', 'service-categories')
-    cats_filenames = os.listdir(cats_path)
+    service_path = os.path.join(base_path, CONTENT_DIR, 'navigation', 'service-categories')
+    service_filenames = os.listdir(service_path)
+    projekt_path = os.path.join(base_path, CONTENT_DIR, 'navigation', 'projekt-categories')
+    projekt_filenames = os.listdir(projekt_path)
 
-    cats = []
+    service_cats = []
+    projekt_cats = []
 
-    for filename in cats_filenames:
+    for path, filenames, cats in (service_path, service_filenames, service_cats), (projekt_path, projekt_filenames, projekt_cats):
 
-        cat_path = os.path.join(cats_path, filename)
-        with open(cat_path, 'r') as f:
-            precat = yaml.load(f, Loader=Loader)
-            cat = {'title': {}}
-            for key in precat:
-                if key.startswith('Title'):
-                    lang = key.split('_')[1]
-                    cat['title'][lang] = precat[key]
-                elif precat[key] is not None:
-                    cat[key.lower()] = precat[key]
-                else:
-                    cat[key.lower()] = ''
+        for filename in filenames:
+            cat_path = os.path.join(path, filename)
+            with open(cat_path, 'r') as f:
+                precat = yaml.load(f, Loader=Loader)
+                cat = {'title': {}}
+                for key in precat:
+                    if key.startswith('Title'):
+                        lang = key.split('_')[1]
+                        cat['title'][lang] = precat[key]
+                    elif precat[key] is not None:
+                        cat[key.lower()] = precat[key]
+                    else:
+                        cat[key.lower()] = ''
 
-        cats.append(cat)
+            cats.append(cat)
+        cats.sort(key=lambda c: c['order'])
 
-    cats.sort(key=lambda c: c['order'])
-    pelican.settings['ES_SCATS'] = cats
+    pelican.settings['ES_SCATS'] = {
+        'services': service_cats,
+        'projekt': projekt_cats,
+    }
 
 
 def build_menus(pelican):

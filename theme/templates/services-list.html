@@ -6,7 +6,7 @@
           <a class="all active category-chooser" data-category="all">
             <li>{% trans %}Visa alla{% endtrans %}</li>
           </a>
-          {% for cat in ES_SCATS %}
+          {% for cat in ES_SCATS[ns.section] %}
           <a class="{{ cat['slug'] }} null category-chooser" data-category="{{ cat['slug'] }}">
             <li>{{ cat['title'][LANG] }}</li>
           </a>
@@ -50,7 +50,7 @@
     <div id="card-reservoir" class="d-none" data-current="{{ current_category }}">
       {% for page in pages %}
         {% set fragments = page.slug.split('/') %}
-        {% if fragments[0] == 'services' and fragments|length() > 2 %}
+        {% if fragments[0] == ns.section and fragments|length() > 2 %}
           {% set i = loop.index + 1 %}
           {% include 'services-list-item.html' %}
         {% endif %}
