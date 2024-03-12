@@ -18,9 +18,9 @@ PAGE_PATHS = ['pages']
 
 ARTICLE_PATHS = ['articles']
 
-PAGE_EXCLUDES = ['templates', 'navigation', 'wp-content', 'people']
+PAGE_EXCLUDES = ['templates', 'navigation', 'wp-content', 'people', '_Documentation']
 
-ARTICLE_EXCLUDES = ['templates', 'navigation', 'wp-content', 'people']
+ARTICLE_EXCLUDES = ['templates', 'navigation', 'wp-content', 'people', '_Documentation']
 
 STATIC_PATHS = ['wp-content']
 
