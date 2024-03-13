@@ -23,7 +23,7 @@ RUN apt-get -y update && \
     rm -rf /var/lib/apt/lists/*
 
 RUN ls
-RUN git clone --branch main https://github.com/enriquepablo/sunet-se-code /opt/sunet-se-code
+RUN git clone --branch $GIT_BRANCH https://github.com/enriquepablo/sunet-se-code /opt/sunet-se-code
 
 WORKDIR /opt/sunet-se-code
 
