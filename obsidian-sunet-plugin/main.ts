@@ -115,14 +115,13 @@ export default class SunetPlugin extends Plugin {
       // Stage, commit, and push changes
       await this.git.add('./*').commit('Auto-commit').push();
 
-      const headers = new Headers();
-      headers.append("Accept", "text/plain");
 	  const credentials = btoa(`${this.settings.refreshUsername}:${this.settings.refreshPassword}`);
-	  headers.append("Authorization", `Basic ${credentials}`);
+      const headers = new Headers({
+        'Authorization': 'Basic ' + credentials
+      });
       
       const fetchOptions = {
-        method: 'get',
-        mode: 'no-cors',
+        method: 'POST',
         headers: headers,
       };
       // Fetch data from example.com
@@ -142,14 +141,13 @@ export default class SunetPlugin extends Plugin {
       await this.git.reset(['--hard', 'HEAD~1']);
       await this.git.push(['-f']);
 
-      const headers = new Headers();
-      headers.append("Accept", "text/plain");
 	  const credentials = btoa(`${this.settings.refreshUsername}:${this.settings.refreshPassword}`);
-	  headers.append("Authorization", `Basic ${credentials}`);
+      const headers = new Headers({
+        'Authorization': 'Basic ' + credentials
+      });
       
       const fetchOptions = {
-        method: 'get',
-        mode: 'no-cors',
+        method: 'POST',
         headers: headers,
       };
 

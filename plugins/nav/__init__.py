@@ -165,7 +165,7 @@ def build_tickets(pelican):
 
     pelican.settings['ES_TICKETS'] = {}
 
-    base_path = os.environ.get('JIRA_TICKETS_OUTPUT', '')
+    base_path = os.environ.get('JIRA_TICKETS_OUTPUT', '/tmp')
     json_path = os.path.join(base_path, 'tickets.json')
 
     if base_path == '' or not os.path.exists(json_path):
