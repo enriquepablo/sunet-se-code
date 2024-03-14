@@ -6,12 +6,14 @@ ENV GIT_BRANCH main
 ENV SERVER_NAME localhost
 ENV NGINX_VERSION 1.25.3.1
 ENV SUNET_JIRA_PASSWORD dummy
+ENV REFRESH_USERNAME editor
+ENV REFRESH_PASSWORD dummy
 
 # Install needed software
 
 RUN apt-get -y update && apt-get -y upgrade && \
     apt-get install -y curl wget gnupg ca-certificates git nodejs \
-    python3 python3-venv python3-pip npm && \
+    python3 python3-venv python3-pip npm openssl && \
     rm -rf /var/lib/apt/lists/*
 
 RUN wget -O - https://openresty.org/package/pubkey.gpg | apt-key add -
@@ -52,6 +54,9 @@ RUN chmod 755 /usr/local/bin/get-jira-issues.sh
 RUN sed -i "s/SERVER_NAME/$SERVER_NAME/g" /usr/local/openresty/nginx/conf/nginx.conf
 RUN sed -i "s/GIT_BRANCH/$GIT_BRANCH/g" /usr/local/bin/update_site.sh
 RUN sed -i "s/SUNET_JIRA_PASSWORD/$SUNET_JIRA_PASSWORD/g" /usr/local/bin/update_site.sh
+
+RUN sh -c "echo -n '$REFRESH_USERNAME:' >> /usr/local/openresty/nginx/conf/.htpasswd"
+RUN sh -c "openssl passwd -apr1 $REFRESH_PASSWORD >> /usr/local/openresty/nginx/conf/.htpasswd"
 
 EXPOSE 80
 	 
