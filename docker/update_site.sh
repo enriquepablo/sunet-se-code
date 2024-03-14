@@ -1,41 +1,53 @@
 #!/bin/bash
-#
-touch /tmp/update_site.log
 
-# Change directory to /opt/web
-cd /opt/sunet-se-code || exit 1
+log_file="/tmp/update_site.log"
+
+# Function to log with timestamp
+log() {
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - $1" >> "$log_file"
+}
+
+# Base repository directory
+repo_dir="/opt/sunet-se-code"
+
+# Start logging
+log "Update started."
+
+# Ensure the script exits if any commands fail
+set -e
+
+# Change directory to repository base
+cd "$repo_dir" || exit 1
 
 # Pull changes from the remote origin
-git pull &>/tmp/update_site.log
-pull_status=$?
+git pull &>> "$log_file"
+log "Pulled changes from remote."
 
-# Change directory to /opt/web
-cd /opt/sunet-se-code/sunet-se-content || exit 1
+# Define GIT_BRANCH if not set
+GIT_BRANCH=${GIT_BRANCH:-"staging"}  # Replace 'default_branch_name' with your branch
 
-git checkout GIT_BRANCH &>>/tmp/update_site.log
-git fetch --all &>>/tmp/update_site.log
-pull_status_2=$?
+# Switch to content directory
+cd "${repo_dir}/sunet-se-content" || exit 1
 
-git reset --hard origin/GIT_BRANCH &>>/tmp/update_site.log
-git checkout GIT_BRANCH &>>/tmp/update_site.log
-git pull &>>/tmp/update_site.log
+# Stash any local changes (optional, uncomment if needed)
+# git stash push --include-untracked &>> "$log_file"
 
-cd ..
+git fetch --all &>> "$log_file"
+git reset --hard "origin/$GIT_BRANCH" &>> "$log_file"
+git checkout "$GIT_BRANCH" &>> "$log_file"
+git pull &>> "$log_file"
+log "Updated content repository."
 
-get-jira-tickets.sh -c get-jira-tickets.conf -p SUNET_JIRA_PASSWORD &>>/tmp/update_site.log
-tickets_status=$?
+# Retrieve JIRA tickets
+"${repo_dir}/get-jira-tickets.sh" -c get-jira-tickets.conf -p "$SUNET_JIRA_PASSWORD" &>> "$log_file"
+log "Retrieved JIRA tickets."
 
-# activate virtualenv
+# Activate virtual environment and build the site
 source venv/bin/activate
+make pristine &>> "$log_file"
+log "Built the site."
 
-# Run "make pristine" to build the site
-make pristine &>>/tmp/update_site.log
-make_status=$?
+log "Update completed successfully."
 
-# If there were errors in either the git pull or make commands, return exit status 1
-if [ $pull_status -ne 0 ] || [ $pull_status_2 -ne 0 ] || [ $tickets_status -ne 0 ] || [ $make_status -ne 0 ]; then
-    exit 1
-fi
-
-# If there are no errors, return exit status 0
+# Exit without error
 exit 0
