@@ -73,7 +73,7 @@ RUN chmod 755 /usr/local/bin/get-jira-issues.sh
 RUN sed -i "s/SERVER_NAME/$SERVER_NAME/g" /usr/local/openresty/nginx/conf/nginx.conf
 RUN sed -i "s/GIT_BRANCH/$GIT_BRANCH/g" /usr/local/bin/update_site.sh
 
-RUN sed -i "s/SUNET_JIRA_PASSWORD/$JIRA_PASSWORD/g" /usr/local/bin/update_site.sh
+RUN sed -i "s/SUNET_JIRA_PASSWORD/$SUNET_JIRA_PASSWORD/g" /usr/local/bin/update_site.sh
 
 RUN sed -i "s|JIRA_BASEURL_PLACEHOLDER|$JIRA_BASEURL|g" /usr/local/bin/get-jira-issues.conf
 RUN sed -i "s/JIRA_USERNAME_PLACEHOLDER/$JIRA_USERNAME/g" /usr/local/bin/get-jira-issues.conf

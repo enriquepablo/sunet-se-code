@@ -23,9 +23,6 @@ cd "$repo_dir" || exit 1
 git pull &>> "$log_file"
 log "Pulled changes from remote."
 
-# Define GIT_BRANCH if not set
-GIT_BRANCH=${GIT_BRANCH:-"staging"}  # Replace 'default_branch_name' with your branch
-
 # Switch to content directory
 cd "${repo_dir}/sunet-se-content" || exit 1
 
@@ -33,14 +30,16 @@ cd "${repo_dir}/sunet-se-content" || exit 1
 # git stash push --include-untracked &>> "$log_file"
 
 git fetch --all &>> "$log_file"
-git reset --hard "origin/$GIT_BRANCH" &>> "$log_file"
-git checkout "$GIT_BRANCH" &>> "$log_file"
+git reset --hard origin/GIT_BRANCH &>> "$log_file"
+git checkout GIT_BRANCH &>> "$log_file"
 git pull &>> "$log_file"
 log "Updated content repository."
 
 # Retrieve JIRA tickets
-"${repo_dir}/get-jira-tickets.sh" -c get-jira-tickets.conf -p "$SUNET_JIRA_PASSWORD" &>> "$log_file"
+"${repo_dir}/get-jira-tickets.sh" -c get-jira-tickets.conf -p "SUNET_JIRA_PASSWORD" &>> "$log_file"
 log "Retrieved JIRA tickets."
+
+cd "$repo_dir" || exit 1
 
 # Activate virtual environment and build the site
 source venv/bin/activate
