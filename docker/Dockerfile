@@ -38,6 +38,7 @@ RUN npm install
 RUN . venv/bin/activate && make pristine
 
 RUN git config --global --add safe.directory /opt/sunet-se-code
+RUN git config --global --add safe.directory /opt/sunet-se-code/sunet-se-content
 
 COPY nginx.conf /usr/local/openresty/nginx/conf/nginx.conf
 COPY refresh.lua /usr/local/openresty/nginx/conf/refresh.lua
@@ -48,7 +49,9 @@ COPY get-jira-issues.conf /usr/local/bin/get-jira-issues.conf
 RUN chmod 755 /usr/local/bin/update_site.sh
 RUN chmod 755 /usr/local/bin/get-jira-issues.sh
 
-RUN sed -i 's/SERVER_NAME/$SERVER_NAME/g' /usr/local/openresty/nginx/conf/nginx.conf
+RUN sed -i "s/SERVER_NAME/$SERVER_NAME/g" /usr/local/openresty/nginx/conf/nginx.conf
+RUN sed -i "s/GIT_BRANCH/$GIT_BRANCH/g" /usr/local/bin/update_site.sh
+RUN sed -i "s/SUNET_JIRA_PASSWORD/$SUNET_JIRA_PASSWORD/g" /usr/local/bin/update_site.sh
 
 EXPOSE 80
 	 
