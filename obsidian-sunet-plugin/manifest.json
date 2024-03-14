@@ -1,0 +1,11 @@
+{
+	"id": "sunet-plugin",
+	"name": "Sunet Plugin",
+	"version": "1.0.0",
+	"minAppVersion": "0.15.0",
+	"description": "Commands for Sunet.",
+	"author": "Enrique Perez",
+	"authorUrl": "https://cazalla.net",
+	"fundingUrl": "",
+	"isDesktopOnly": true
+}
