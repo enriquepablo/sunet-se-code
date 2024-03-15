@@ -43,7 +43,6 @@ RUN apt-get -y update && \
     apt-get -y install --no-install-recommends openresty && \
     rm -rf /var/lib/apt/lists/*
 
-RUN ls
 RUN git clone --branch $GIT_BRANCH $GITHUB_CODE_REPO /opt/sunet-se-code
 
 WORKDIR /opt/sunet-se-code
