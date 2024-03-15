@@ -1,4 +1,5 @@
 from collections import defaultdict
+from datetime import datetime
 from urllib.parse import urljoin
 import json
 import logging
@@ -239,6 +240,22 @@ def add_url(content):
     content.abs_url = urljoin('/', content.url)
 
 
+def filter_events(article_generator):
+    old = article_generator.articles
+    new = []
+    for article in old:
+        if article.category.name == 'evenemang':
+            event_date = datetime.strptime(article.enddate, '%Y-%m-%d')
+            current_date = datetime.now()
+            if event_date < current_date:
+                continue
+
+        new.append(article)
+
+    article_generator.articles = new
+
+
 def register():
     signals.initialized.connect(build_navigation)
     signals.content_object_init.connect(add_url)
+    signals.article_generator_pretaxonomy.connect(filter_events)
