@@ -113,7 +113,9 @@ export default class SunetPlugin extends Plugin {
   async commitPushAndFetch() {
     try {
       // Stage, commit, and push changes
-      await this.git.add('./*').commit('Auto-commit').push();
+      await this.git.add('./*').commit('Auto-commit');
+      await git.pull({'--rebase': 'true'});
+      await this.git.push();
 
 	  const credentials = btoa(`${this.settings.refreshUsername}:${this.settings.refreshPassword}`);
       const headers = new Headers({
