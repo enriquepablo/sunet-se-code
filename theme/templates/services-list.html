@@ -6,7 +6,7 @@
           <a class="all active category-chooser" data-category="all">
             <li>{% trans %}Visa alla{% endtrans %}</li>
           </a>
-          {% for cat in ES_SCATS[ns.section] %}
+          {% for cat in ES_SCATS[ns.section].values() | sort(attribute='order') %}
           <a class="{{ cat['slug'] }} null category-chooser" data-category="{{ cat['slug'] }}">
             <li>{{ cat['title'][LANG] }}</li>
           </a>
@@ -30,7 +30,7 @@
       {% endfor %}
     </div>
     <div class="row">
-      <div id="card-display" class="col cards">
+      <div id="card-display" class="col cards{% if ns.section == 'projekt' %} list{% endif %}">
       </div>
     </div>
   </div>

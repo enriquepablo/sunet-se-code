@@ -64,8 +64,8 @@ def build_categories(pelican):
     projekt_path = os.path.join(base_path, CONTENT_DIR, 'navigation', 'projekt-categories')
     projekt_filenames = os.listdir(projekt_path)
 
-    service_cats = []
-    projekt_cats = []
+    service_cats = {}
+    projekt_cats = {}
 
     for path, filenames, cats in (service_path, service_filenames, service_cats), (projekt_path, projekt_filenames, projekt_cats):
 
@@ -83,8 +83,7 @@ def build_categories(pelican):
                     else:
                         cat[key.lower()] = ''
 
-            cats.append(cat)
-        cats.sort(key=lambda c: c['order'])
+            cats[cat['slug']] = cat
 
     pelican.settings['ES_SCATS'] = {
         'services': service_cats,
@@ -255,12 +254,31 @@ def filter_events(article_generator):
     article_generator.articles = new
 
 
-def filter_categories(pelican):
-    pass
+def filter_categories(page_generator):
+    pages = page_generator.pages
+    settings = page_generator.settings
+
+    service_cat_slugs = []
+    projekt_cat_slugs = []
+
+    for page in pages:
+        if page.type == 'service':
+            service_cat_slugs.append(page.category)
+        elif page.type == 'projekt':
+            projekt_cat_slugs.append(page.category)
+
+    all_service = settings['ES_SCATS']['services']
+    all_projekt = settings['ES_SCATS']['projekt']
+
+    service_cats = {slug: all_service[slug] for slug in all_service if slug in service_cat_slugs}
+    projekt_cats = {slug: all_projekt[slug] for slug in all_projekt if slug in projekt_cat_slugs}
+
+    settings['ES_SCATS']['services'] = service_cats
+    settings['ES_SCATS']['projekt'] = projekt_cats
 
 
 def register():
     signals.initialized.connect(build_navigation)
     signals.content_object_init.connect(add_url)
     signals.article_generator_pretaxonomy.connect(filter_events)
-    signals.finalized.connect(filter_categories)
+    signals.page_generator_finalized.connect(filter_categories)
