@@ -244,7 +244,7 @@ def filter_events(article_generator):
     old = article_generator.articles
     new = []
     for article in old:
-        if article.category.name == 'evenemang':
+        if article.type == 'evenemang':
             event_date = datetime.strptime(article.enddate, '%Y-%m-%d')
             current_date = datetime.now()
             if event_date < current_date:
@@ -255,7 +255,12 @@ def filter_events(article_generator):
     article_generator.articles = new
 
 
+def filter_categories(pelican):
+    pass
+
+
 def register():
     signals.initialized.connect(build_navigation)
     signals.content_object_init.connect(add_url)
     signals.article_generator_pretaxonomy.connect(filter_events)
+    signals.finalized.connect(filter_categories)

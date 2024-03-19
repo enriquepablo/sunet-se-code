@@ -1,6 +1,6 @@
 {% set articlelist = articles %}
 {% if ns.subsubsection != 'none' %}
-  {% set articlelist = articlelist|selectattr('category', 'equalto', ns.subsubsection) %}
+  {% set articlelist = articlelist|selectattr('type', 'equalto', ns.subsubsection) %}
 {% endif %}
 
 <div class="bg-grey">
